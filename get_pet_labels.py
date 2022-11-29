@@ -45,8 +45,13 @@ def get_pet_labels(image_dir):
     
     # Retrieve the filenames from folder pet_images/
     filenames = listdir(image_dir)
-    pet_labels = []
+    # Creates empty dictionary named results_dic
+    results_dic = dict()
+
     for filename in filenames:
+        # if hidden file ignore
+        if (filename.startswith('.')):
+            continue
         # Sets string to lower case letters
         low_pet_image = filename.lower()
 
@@ -65,18 +70,16 @@ def get_pet_labels(image_dir):
 
         # Strip off starting/trailing whitespace characters 
         pet_name = pet_name.strip()
-        pet_labels.append(pet_name)
-    # Creates empty dictionary named results_dic
-    results_dic = dict()
 
-    # Adds new key-value pairs to dictionary ONLY when key doesn't already exist. This dictionary's value is
-    # a List that contains only one item - the pet image label
-    for idx in range(0, len(filenames), 1):
-        if filenames[idx] not in results_dic:
-             results_dic[filenames[idx]] = [pet_labels[idx]]
+        if filename not in results_dic:
+             results_dic[filename] = pet_name
         else:
-             print("** Warning: Key=", filenames[idx], 
+             print("** Warning: Key=", filename, 
                    "already exists in results_dic with value =", 
-                   results_dic[filenames[idx]])
+                   results_dic[filename])
+
+    # # Adds new key-value pairs to dictionary ONLY when key doesn't already exist. This dictionary's value is
+    # # a List that contains only one item - the pet image label
+    # for idx in range(0, len(filenames), 1):
     
     return results_dic

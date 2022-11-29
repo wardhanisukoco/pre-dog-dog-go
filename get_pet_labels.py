@@ -18,6 +18,7 @@
 ##
 # Imports python modules
 from os import listdir
+import re
 
 # TODO 2: Define get_pet_labels function below please be certain to replace None
 #       in the return statement with results_dic dictionary that you create 
@@ -64,6 +65,7 @@ def get_pet_labels(image_dir):
         # Loops to check if word in pet name is only
         # alphabetic characters - if true append word
         # to pet_name separated by trailing space 
+        
         for word in word_list_pet_image:
             if word.isalpha():
                 pet_name += word + " "
@@ -72,14 +74,10 @@ def get_pet_labels(image_dir):
         pet_name = pet_name.strip()
 
         if filename not in results_dic:
-             results_dic[filename] = pet_name
+             results_dic[filename] = [pet_name]
         else:
              print("** Warning: Key=", filename, 
                    "already exists in results_dic with value =", 
                    results_dic[filename])
-
-    # # Adds new key-value pairs to dictionary ONLY when key doesn't already exist. This dictionary's value is
-    # # a List that contains only one item - the pet image label
-    # for idx in range(0, len(filenames), 1):
     
     return results_dic
